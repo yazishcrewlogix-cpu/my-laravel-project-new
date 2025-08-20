@@ -13,6 +13,9 @@
     <label>Description:</label><br>
     <textarea name="description"></textarea><br><br>
 
+        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+
+
     <button type="submit">Save Product</button>
 </form>
 @endsection

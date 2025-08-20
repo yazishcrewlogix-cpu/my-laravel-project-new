@@ -1,17 +1,26 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Models\Product;
 
-// Load auth routes (Breeze or custom)
+// Auth routes (Breeze or custom)
 require __DIR__.'/auth.php';
 
 // Home route
 Route::get('/', function () {
-    return redirect()->route('products.index');
-});
+    $products=Product::with('user')->simplePaginate(2);
 
-// Authenticated product routes
+/*$products=Product::all();
+dd($products[0]->user->name);
+return view('welcome');*/
+return view('products',[
+    'products'=>$products
+]);
+/*Route::controller(ProductController::class)->group(function(){
+}
+);*/
+    //return redirect()->route('products.index');
+});// Authenticated product routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
@@ -20,3 +29,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::get('/products/{product}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
 });
+//Route::view('/products','products');
+
+ 

@@ -13,6 +13,10 @@
     <label>Description:</label><br>
     <textarea name="description">{{ $product->description }}</textarea><br><br>
 
+    <label>User Id:</label><br>
+    <input type="number" step="1" name="ID" value="{{ $product->user_Id }}" required><br><br>
+
+
     <button type="submit">Update</button>
 </form>
 @endsection

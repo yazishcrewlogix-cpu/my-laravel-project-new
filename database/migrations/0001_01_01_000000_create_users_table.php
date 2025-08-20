@@ -35,13 +35,6 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-        Schema::create('products', function (Blueprint $table) {
-    $table->id();
-    $table->string('name');
-    $table->decimal('price', 10, 2);
-    $table->text('description')->nullable();
-    $table->timestamps();
-});
 
     }
 

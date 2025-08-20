@@ -5,21 +5,12 @@ use App\Models\Product;
 
 // Auth routes (Breeze or custom)
 require __DIR__.'/auth.php';
-
 // Home route
 Route::get('/', function () {
     $products=Product::with('user')->simplePaginate(2);
-
-/*$products=Product::all();
-dd($products[0]->user->name);
-return view('welcome');*/
 return view('products',[
     'products'=>$products
 ]);
-/*Route::controller(ProductController::class)->group(function(){
-}
-);*/
-    //return redirect()->route('products.index');
 });// Authenticated product routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
@@ -29,6 +20,4 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::get('/products/{product}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
 });
-//Route::view('/products','products');
-
  
